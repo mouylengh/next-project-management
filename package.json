@@ -6,7 +6,10 @@
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "prepare": "husky",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,md,mdx,css,yaml,yml}\"",
+    "check": "prettier --check \"**/*.{ts,tsx,js,jsx,md,mdx,css,yaml,yml}\""
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.3",
@@ -26,8 +29,16 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.5.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.5",
+    "prettier": "^3.6.2",
     "tailwindcss": "^4",
     "tw-animate-css": "^1.3.7",
     "typescript": "^5"
+  },
+  "lint-staged": {
+    "*.{js,ts,vue,jsx,tsx}": [
+      "eslint --fix"
+    ]
   }
 }

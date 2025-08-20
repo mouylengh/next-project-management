@@ -1,0 +1,19 @@
+# v10-safe commit message check (no husky.sh, no shebang needed)
+
+MSG_FILE="$1"
+MSG="$(cat "$MSG_FILE")"
+
+# Allow merge/revert/version commits without checks
+case "$MSG" in
+  "Merge "*|"Revert "*|v[0-9]*) exit 0;;
+esac
+
+# Conventional Commits: type(scope?): description
+if ! printf '%s' "$MSG" | grep -E -q '^(feat|fix|chore|docs|style|refactor|perf|test|build|ci|revert)(\(.+\))?: .+'; then
+  echo >&2 "❌ Invalid commit message: $MSG"
+  echo >&2 ""
+  echo >&2 "Use Conventional Commits, e.g.:"
+  echo >&2 "👉 feat: add login page"
+  echo >&2 "👉 fix(api): handle 401"
+  exit 1
+fi
